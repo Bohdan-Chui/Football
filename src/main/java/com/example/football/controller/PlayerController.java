@@ -48,8 +48,9 @@ public class PlayerController {
         playerService.deleteById(id);
         return ResponseEntity.ok(HttpStatus.OK);
     }
+
     @PostMapping("/transfer")
-    public ResponseEntity<Player> transfer(@Valid @RequestBody TransferDTO transferDTO){
+    public ResponseEntity<Player> transfer(@Valid @RequestBody TransferDTO transferDTO) {
         return ResponseEntity
                 .ok(playerService.transfer(transferDTO));
     }

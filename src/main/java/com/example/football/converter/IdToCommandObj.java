@@ -23,6 +23,7 @@ public class IdToCommandObj implements org.springframework.core.convert.converte
     public Command convert(Integer source) {
         return commandService.get(source);
     }
+
     @Override
     public JavaType getInputType(TypeFactory typeFactory) {
         return typeFactory.constructType(Integer.class);
