@@ -1,0 +1,15 @@
+/Users/bogdanchui/Football/src/main/java/com/example/football/exception/SimpleExceptionController.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/exception/NotEnoughMoney.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/converter/IdToCommandObj.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/controller/CommandController.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/controller/PlayerController.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/service/PlayerService.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/model/Player.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/converter/IdToPlayerObj.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/FootballApplication.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/model/Command.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/dto/TransferDTO.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/service/CommandService.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/config/DataLoader.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/repository/PlayerRepository.java
+/Users/bogdanchui/Football/src/main/java/com/example/football/repository/CommandRepository.java
