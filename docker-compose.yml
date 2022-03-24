@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  db:
+    platform: linux/x86_64
+    image: mysql:latest
+    container_name: mysql-db2
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_DATABASE=football
+    ports:
+      - "3306:3306"
+    restart: always
+    volumes:
+      - ./data:/docker-entrypoint-initdb.d
+    healthcheck:
+      test: mysqladmin ping -h 127.0.0.1 -u root --password=root
+
+
+  airlanesservice:
+    image: football
+    container_name: airlanes-service-app
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "8080:8080"
+    restart: always
+
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://mysql-db2:3306/football?createDatabaseIfNotExist=true
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
