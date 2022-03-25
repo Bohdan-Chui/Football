@@ -30,7 +30,7 @@ public class SimpleExceptionController {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler({EntityExistsException.class, NoSuchElementException.class, IllegalArgumentException.class,
-            EmptyResultDataAccessException.class})
+            EmptyResultDataAccessException.class, NullPointerException.class})
     public String handle(RuntimeException ex) {
         return "Problem: " + ex.getMessage();
     }

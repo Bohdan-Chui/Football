@@ -1,8 +1,10 @@
 package com.example.football.controller;
 
-import com.example.football.dto.TransferDTO;
+import com.example.football.dto.PlayerDto;
+import com.example.football.dto.TransferDto;
 import com.example.football.model.Player;
 import com.example.football.service.PlayerService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,43 +17,50 @@ import javax.validation.Valid;
 public class PlayerController {
 
     private final PlayerService playerService;
+    private final ModelMapper modelMapper;
 
     @Autowired
-    public PlayerController(PlayerService playerService) {
+    public PlayerController(PlayerService playerService, ModelMapper modelMapper) {
         this.playerService = playerService;
+        this.modelMapper = modelMapper;
     }
 
     @PostMapping("/save")
-    public ResponseEntity<Player> savePlayer(@Valid @RequestBody Player player) {
+    public ResponseEntity<PlayerDto> savePlayer(@Valid @RequestBody PlayerDto playerDto) {
+        Player player = modelMapper.map(playerDto, Player.class);
         return ResponseEntity
-                .ok()
-                .body(playerService.save(player));
+                .status(HttpStatus.CREATED)
+                .body(modelMapper.map(playerService.save(player), PlayerDto.class));
     }
 
     @PatchMapping("/update")
-    public ResponseEntity<Player> updatePlayer(@Valid @RequestBody Player player) {
+    public ResponseEntity<PlayerDto> updatePlayer(@Valid @RequestBody PlayerDto playerDto) {
+        Player player = modelMapper.map(playerDto, Player.class);
         return ResponseEntity
-                .ok()
-                .body(playerService.update(player));
+                .status(HttpStatus.ACCEPTED)
+                .body(modelMapper.map(playerService.update(player), PlayerDto.class));
     }
 
     @GetMapping("/get/{id}")
-    public ResponseEntity<Player> getById(@PathVariable("id") Integer id) {
+    public ResponseEntity<PlayerDto> getById(@PathVariable("id") Integer id) {
         return ResponseEntity
                 .ok()
-                .body(playerService.get(id));
+                .body(modelMapper.map(playerService.get(id), PlayerDto.class));
 
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<HttpStatus> deleteById(@PathVariable("id") Integer id) {
         playerService.deleteById(id);
-        return ResponseEntity.ok(HttpStatus.OK);
+        return ResponseEntity
+                .ok(HttpStatus.OK);
     }
 
     @PostMapping("/transfer")
-    public ResponseEntity<Player> transfer(@Valid @RequestBody TransferDTO transferDTO) {
+    public ResponseEntity<PlayerDto> transfer(@Valid @RequestBody TransferDto transferDTO) {
+        Player player = playerService.transfer(transferDTO.getPlayerId(), transferDTO.getBuyerId());
         return ResponseEntity
-                .ok(playerService.transfer(transferDTO));
+                .status(HttpStatus.ACCEPTED)
+                .body(modelMapper.map(player, PlayerDto.class));
     }
 }

@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class TransferDTO {
+public class TransferDto {
 
     @JsonDeserialize(converter = IdToPlayerObj.class)
     private Player playerId;

@@ -1,12 +1,14 @@
 package com.example.football.service;
 
-import com.example.football.dto.TransferDTO;
+import com.example.football.dto.TransferDto;
 import com.example.football.exception.NotEnoughMoney;
 import com.example.football.model.Command;
 import com.example.football.model.Player;
 import com.example.football.repository.PlayerRepository;
+import lombok.NonNull;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityExistsException;
 import java.util.NoSuchElementException;
@@ -51,13 +53,9 @@ public class PlayerService {
         playerRepository.deleteById(id);
     }
 
-    public Player transfer(TransferDTO transferDTO) {
-        if (transferDTO.getPlayerId() == null || transferDTO.getBuyerId() == null)
-            throw new IllegalArgumentException("null argument");
+    public Player transfer(@NonNull Player player, @NonNull Command buyer) {
 
-        Command seller = transferDTO.getPlayerId().getCommand();
-        Command buyer = transferDTO.getBuyerId();
-        Player player = transferDTO.getPlayerId();
+        Command seller = player.getCommand();
 
         if (seller.equals(buyer))
             throw new IllegalArgumentException("The buyer and seller are same");
