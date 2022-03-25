@@ -53,6 +53,7 @@ public class PlayerService {
         playerRepository.deleteById(id);
     }
 
+    @Transactional
     public Player transfer(@NonNull Player player, @NonNull Command buyer) {
 
         Command seller = player.getCommand();
